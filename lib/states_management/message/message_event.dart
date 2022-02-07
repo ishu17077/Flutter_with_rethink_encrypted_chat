@@ -1,9 +1,9 @@
+// @dart=2.9
 // ignore: import_of_legacy_library_into_null_safe, implementation_imports
 // ignore: import_of_legacy_library_into_null_safe, implementation_imports
 // ignore_for_file: import_of_legacy_library_into_null_safe, implementation_imports, duplicate_ignore
 
 part of 'message_bloc.dart';
-
 
 abstract class MessageEvent extends Equatable {
   const MessageEvent();

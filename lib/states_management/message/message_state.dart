@@ -1,4 +1,4 @@
-
+// @dart=2.9
 part of 'message_bloc.dart';
 
 abstract class MessageState extends Equatable {

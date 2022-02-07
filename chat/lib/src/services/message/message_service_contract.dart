@@ -5,6 +5,6 @@ import 'package:chat/src/models/user.dart';
 
 abstract class IMessageService {
   Future<bool> send(Message message);
-  Stream<Message> message({required User activeUser});
+  Stream<Message> messages({required User activeUser});
   dispose();
 }

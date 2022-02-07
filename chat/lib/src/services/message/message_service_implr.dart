@@ -24,7 +24,7 @@ class MessageService implements IMessageService {
   }
 
   @override
-  Stream<Message> message({User activeUser}) {
+  Stream<Message> messages({User activeUser}) {
     _startRecievingMessages(activeUser);
     return _controller.stream;
   }

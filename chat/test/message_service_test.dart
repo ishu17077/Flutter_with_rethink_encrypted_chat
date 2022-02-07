@@ -52,7 +52,7 @@ void main() {
   });
   test('succesfully subscribe and recieve messages', () async {
     String contents = 'this is a top secret message';
-    sut.message(activeUser: user2).listen(expectAsync1((message) {
+    sut.messages(activeUser: user2).listen(expectAsync1((message) {
           expect(message.to, user2.id);
           expect(message.id, isNotEmpty);
           expect(message.contents, contents);
