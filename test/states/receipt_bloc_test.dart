@@ -2,7 +2,6 @@
 import 'package:chat/src/models/user.dart';
 import 'package:chat/src/models/receipt.dart';
 import 'package:chat/src/services/receipt/receipt_service_contract.dart';
-import 'package:flutter_firebase_chat_app/states_management/message/message_bloc.dart';
 import 'package:flutter_firebase_chat_app/states_management/receipt/receipt_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
