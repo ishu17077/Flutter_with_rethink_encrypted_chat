@@ -21,7 +21,7 @@ void main() {
 
   test('it encrpyts the plain text😁', () {
     const text = 'Encryption is ready to be implemented!🏄';
-    printText('Namaste!');
+    printText('Encryption is ready to be implemented!🏄');
     final base64 = RegExp(
         r'^(?:[A-Za-z0-9+\/]{4})*(?:[A-Za-z0-9+\/]{2}==|[A-Za-z0-9+\/]{3}=|[A-Za-z0-9+\/]{4})$');
     final encrypted = sut.encrypt(text);
