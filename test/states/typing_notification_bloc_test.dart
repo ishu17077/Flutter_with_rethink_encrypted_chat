@@ -42,17 +42,18 @@ void main() {
     sut.add(TypingNotificationEvent.onTypingSent(typingEvent));
     expectLater(sut.stream, emits(TypingNotificationSentSuccess()));
   });
- test('should emit receipts recieved from service', () {
+  test('should emit receipts recieved from service', () {
     final typingEvent = TypingEvent(
       event: Typing.start,
       from: '123',
       to: '345',
     );
     when(typingNotification.subscribe(any, any))
-      
         .thenAnswer((_) => Stream.fromIterable([typingEvent]));
 
-    sut.add(TypingNotificationEvent.onSubscribed(user, userWithChat: userWithChatId));
-    expectLater(sut.stream, emitsInOrder([TypingNotificationReceivedSuccess(typingEvent)]));
+    sut.add(TypingNotificationEvent.onSubscribed(user,
+        userWithChat: userWithChatId));
+    expectLater(sut.stream,
+        emitsInOrder([TypingNotificationReceivedSuccess(typingEvent)]));
   });
 }
