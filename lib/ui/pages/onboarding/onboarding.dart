@@ -30,9 +30,9 @@ class _OnboardingState extends State<Onboarding> {
               const ProfileUpload(),
               const Spacer(flex: 1),
               Padding(
-                padding: EdgeInsets.only(left: 20.0, right: 20.0),
+                padding: const EdgeInsets.only(left: 20.0, right: 20.0),
                 child: CustomTextField(
-                  hint: "Wah yuh name!",
+                  hint: "What's your name?",
                   onChanged: (val) {},
                   inputAction: TextInputAction.done,
                   height: 45.0,
@@ -47,7 +47,7 @@ class _OnboardingState extends State<Onboarding> {
                     height: 45.0,
                     alignment: Alignment.center,
                     child: Text(
-                      'Mak wi chat!',
+                      'Welcome!',
                       style: Theme.of(context).textTheme.button.copyWith(
                             fontSize: 18.0,
                             color: Colors.white,
@@ -62,7 +62,7 @@ class _OnboardingState extends State<Onboarding> {
                           borderRadius: BorderRadius.circular(45.0))),
                 ),
               ),
-              Spacer(flex: 2)
+              const Spacer(flex: 2)
             ],
           ),
         ),

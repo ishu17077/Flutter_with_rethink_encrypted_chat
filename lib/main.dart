@@ -1,9 +1,12 @@
 //@dart = 2.9
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_chat_app/composition_root.dart';
 import 'package:flutter_firebase_chat_app/theme.dart';
 import 'package:flutter_firebase_chat_app/ui/pages/onboarding/onboarding.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await CompositionRoot.configure();
   runApp(const MyApp());
 }
 
@@ -17,7 +20,7 @@ class MyApp extends StatelessWidget {
       title: 'Chat App',
       theme: lightTheme(context),
       darkTheme: darkTheme(context),
-      home: const Onboarding(),
+      home: CompositionRoot.composeOnBoardingUI(),
     );
   }
 }
