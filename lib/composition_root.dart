@@ -16,7 +16,7 @@ class CompositionRoot {
   static configure() async {
     _r = Rethinkdb();
     _connection = await _r.connect(host: '127.0.0.1', port: 28015);
-    _userService = UserService(r: _r, connection: _connection);
+    _userService = UserService(_r, _connection);
   }
 
   static Widget composeOnBoardingUI() {
@@ -31,7 +31,7 @@ class CompositionRoot {
         BlocProvider(create: (BuildContext context) => onboardingCubit),
         BlocProvider(create: (BuildContext context) => imageCubit),
       ],
-      child: const Onboarding(),
+      child: Onboarding(),
     );
   }
 }

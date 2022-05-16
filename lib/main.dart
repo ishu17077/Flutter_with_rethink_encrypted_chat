@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       title: 'Chat App',
       theme: lightTheme(context),
       darkTheme: darkTheme(context),
-      home: CompositionRoot.composeOnBoardingUI(),
+      home: Onboarding(),
     );
   }
 }

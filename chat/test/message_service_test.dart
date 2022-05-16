@@ -1,12 +1,12 @@
 // @dart=2.9
 import 'package:chat/src/models/message.dart';
 import 'package:chat/src/models/user.dart';
-import 'package:chat/src/services/encryption/encyption_service.dart';
+import 'package:chat/src/services/encryption/encryption_service.dart';
 import 'package:encrypt/encrypt.dart';
 import 'package:flutter_test/flutter_test.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:rethinkdb_dart/rethinkdb_dart.dart';
-import 'package:chat/src/services/message/message_service_implr.dart';
+import 'package:chat/src/services/message/message_service_impl.dart';
 
 import 'helpers.dart';
 

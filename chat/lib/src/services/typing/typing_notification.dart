@@ -5,7 +5,7 @@ import 'dart:async';
 import 'package:chat/src/models/user.dart';
 
 import 'package:chat/src/models/typing_event.dart';
-import 'package:chat/src/services/typing/typing_notification_contract.dart';
+import 'package:chat/src/services/typing/typing_notification_service_contract.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:rethinkdb_dart/rethinkdb_dart.dart';
 

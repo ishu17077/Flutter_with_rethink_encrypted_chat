@@ -2,7 +2,7 @@
 
 import 'package:chat/src/models/typing_event.dart';
 import 'package:chat/src/models/user.dart';
-import 'package:chat/src/services/typing/typing_notification_contract.dart';
+import 'package:chat/src/services/typing/typing_notification_service_contract.dart';
 import 'package:flutter_firebase_chat_app/states_management/typing/typing_notification_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';

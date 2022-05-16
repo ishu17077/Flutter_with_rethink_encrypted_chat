@@ -1,6 +1,6 @@
 // @dart=2.9
 import 'package:chat/src/models/user.dart';
-import 'package:chat/src/services/user/user_service_implr.dart';
+import 'package:chat/src/services/user/user_service_impl.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rethinkdb_dart/rethinkdb_dart.dart';
 
@@ -15,7 +15,7 @@ void main() async {
   setUp(() async {
     connection = await r.connect(host: "127.0.0.1", port: 28015);
     await createDb(r, connection);
-    sut = UserService(r: r, connection: connection);
+    sut = UserService(r, connection);
   });
   tearDown(() async {
     await cleanDb(r, connection);
