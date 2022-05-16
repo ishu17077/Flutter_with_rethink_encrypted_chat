@@ -1,5 +1,6 @@
 //@dart = 2.9
 import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
 class ImageUploader {
@@ -13,7 +14,7 @@ class ImageUploader {
     final result = await request.send(); //StreamedRespose result
     if (result.statusCode != 200) return null;
     final respose = await Response.fromStream(result);
-    print(Uri.parse(_url).origin + respose.body);
+    debugPrint(Uri.parse(_url).origin + respose.body);
     return (Uri.parse(_url).origin + respose.body);
   }
 }

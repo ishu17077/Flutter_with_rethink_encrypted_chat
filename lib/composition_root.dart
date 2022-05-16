@@ -9,18 +9,18 @@ import 'package:flutter_firebase_chat_app/ui/pages/onboarding/onboarding.dart';
 import 'package:rethinkdb_dart/rethinkdb_dart.dart';
 
 class CompositionRoot {
-  static Rethinkdb _r;
+  static Rethinkdb r;
   static Connection _connection;
   static IUserService _userService;
 
   static configure() async {
-    _r = Rethinkdb();
-    _connection = await _r.connect(host: '127.0.0.1', port: 28015);
-    _userService = UserService(_r, _connection);
+    r = Rethinkdb();
+    _connection = await r.connect(host: '10.0.2.2', port: 28015);
+    _userService = UserService(r, _connection);
   }
 
   static Widget composeOnBoardingUI() {
-    ImageUploader imageUploader = ImageUploader('http://localhost:3000/upload');
+    ImageUploader imageUploader = ImageUploader('http://10.0.2.2:3000/upload');
 
     OnboardingCubit onboardingCubit =
         OnboardingCubit(_userService, imageUploader);

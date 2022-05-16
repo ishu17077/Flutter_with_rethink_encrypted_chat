@@ -22,6 +22,10 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: TextField(
+        style: TextStyle(
+            color: isLightTheme(context)
+                ? const Color(0xFF393737)
+                : const Color(0xFFC4C4C4)),
         keyboardType: TextInputType.text,
         onChanged: onChanged,
         textInputAction: inputAction,

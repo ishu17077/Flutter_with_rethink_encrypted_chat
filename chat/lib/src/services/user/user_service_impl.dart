@@ -1,5 +1,6 @@
 import 'package:chat/src/models/user.dart';
 import 'package:chat/src/services/user/user_service_contract.dart';
+import 'package:flutter/material.dart';
 import 'package:rethinkdb_dart/rethinkdb_dart.dart';
 
 class UserService implements IUserService {
@@ -12,7 +13,10 @@ class UserService implements IUserService {
   Future<User> connect(User user) async {
     var data = user.toJson();
     if (user.id != null) data['id'] = user.id;
-
+    await r
+        .tableCreate('users')
+        .run(_connection)
+        .catchError((err) => debugPrint(err.toString()));
     final result = await r.table('users').insert(data, {
       'conflict': 'update',
       'return_changes': true,

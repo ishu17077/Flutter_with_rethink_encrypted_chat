@@ -1,6 +1,10 @@
 //@dart = 2.9
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_firebase_chat_app/colors.dart';
+import 'package:flutter_firebase_chat_app/states_management/onboarding/profile_image_cubit.dart';
 import 'package:flutter_firebase_chat_app/theme.dart';
 
 class ProfileUpload extends StatelessWidget {
@@ -17,16 +21,33 @@ class ProfileUpload extends StatelessWidget {
             : const Color(0xFF211E1E),
         borderRadius: BorderRadius.circular(126.0),
         child: InkWell(
-          onTap: () {},
+          onTap: () async {
+            await context.read<ProfileImageCubit>().getImage();
+          },
           borderRadius: BorderRadius.circular(126.0),
           child: Stack(
             fit: StackFit.expand,
             children: [
               CircleAvatar(
                 backgroundColor: Colors.transparent,
-                child: Icon(Icons.person_outline_rounded,
-                    size: 126.0,
-                    color: isLightTheme(context) ? kIconLight : Colors.black),
+                child: BlocBuilder<ProfileImageCubit, File>( 
+                  //?BlocBuilder is catching from ProfileImageCubit and type is file check Profile image cubit for more info
+                  //* builder function is doing the thing  where state is the emitted file
+                  //! Note the InkWell above whose onTap does call getImage
+                  builder: (context, state) {
+                    return state == null
+                        ? Icon(Icons.person_outline_rounded,
+                            size: 126.0,
+                            color: isLightTheme(context)
+                                ? kIconLight
+                                : Colors.black)
+                        : ClipRRect(
+                            borderRadius: BorderRadius.circular(126.0),
+                            child: Image.file(state,
+                                width: 126, height: 126, fit: BoxFit.fill),
+                          );
+                  },
+                ),
               ),
               const Align(
                 alignment: Alignment.bottomRight,

@@ -1,7 +1,9 @@
 //@dart = 2.9
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_chat_app/colors.dart';
-
+import 'package:flutter_firebase_chat_app/states_management/onboarding/onboarding_cubit.dart';
+import 'package:flutter_firebase_chat_app/states_management/onboarding/profile_image_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../widgets/onboarding/logo.dart';
 import '../../widgets/onboarding/profile_upload.dart';
 import '../../widgets/shared/custom_text_field.dart';
@@ -13,6 +15,7 @@ class Onboarding extends StatefulWidget {
 }
 
 class _OnboardingState extends State<Onboarding> {
+  String _username = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +36,9 @@ class _OnboardingState extends State<Onboarding> {
                 padding: const EdgeInsets.only(left: 20.0, right: 20.0),
                 child: CustomTextField(
                   hint: "What's your name?",
-                  onChanged: (val) {},
+                  onChanged: (val) {
+                    _username = val;
+                  },
                   inputAction: TextInputAction.done,
                   height: 45.0,
                 ),
@@ -42,7 +47,19 @@ class _OnboardingState extends State<Onboarding> {
               Padding(
                 padding: const EdgeInsets.only(left: 16.0, right: 16.0),
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    final error = _checkInputs();
+                    if (error.isNotEmpty) {
+                      final snackBar = SnackBar(
+                          content: Text(
+                        error,
+                        style: const TextStyle(fontSize: 16.0),
+                      ));
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      return;
+                    }
+                    await _connectSession();
+                  },
                   child: Container(
                     height: 45.0,
                     alignment: Alignment.center,
@@ -94,5 +111,19 @@ class _OnboardingState extends State<Onboarding> {
         ),
       ],
     );
+  }
+
+  _connectSession() async {
+    final profileImage = context.read<ProfileImageCubit>().state;
+    await context.read<OnboardingCubit>().connect(_username, profileImage);
+  }
+
+  String _checkInputs() {
+    var error = '';
+    if (_username.isEmpty) error = 'Enter display name';
+    if (context.read<ProfileImageCubit>().state == null) {
+      error = error + '\n' + 'Upload Profile Image';
+    }
+    return error;
   }
 }
