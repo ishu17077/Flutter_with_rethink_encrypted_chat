@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_chat_app/colors.dart';
 import 'package:flutter_firebase_chat_app/states_management/onboarding/onboarding_cubit.dart';
+import 'package:flutter_firebase_chat_app/states_management/onboarding/onoarding_state.dart';
 import 'package:flutter_firebase_chat_app/states_management/onboarding/profile_image_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../widgets/onboarding/logo.dart';
@@ -79,7 +80,15 @@ class _OnboardingState extends State<Onboarding> {
                           borderRadius: BorderRadius.circular(45.0))),
                 ),
               ),
-              const Spacer(flex: 2)
+              const Spacer(flex: 2),
+              BlocBuilder<OnboardingCubit, OnboardingState>(
+                builder: (context, state) => state is Loading
+                    ? const Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : Container(),
+              ),
+              const Spacer(flex: 1)
             ],
           ),
         ),

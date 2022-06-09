@@ -10,8 +10,11 @@ app.post('/upload', function(req, res){
   uploadFile = req.files.picture
   uploadPath = __dirname + '/images/profile/' + uploadFile.name;
   uploadFile.mv(uploadPath, function(err){ //? mv is a move funcrtion
-    if(err) return res.status(500).send(err)
+    if(err) {
+      return res.status(500).send(err)
+    }
     res.send('/images/profile/' + uploadFile.name)
+    console.log("The Image file has succeessfully been uploaded: " + '/images/profile/' + uploadFile.name);
   });
 });
 app.listen(3000, function(){
