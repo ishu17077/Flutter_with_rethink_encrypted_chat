@@ -1,8 +1,8 @@
 //@dart = 2.9
 import 'package:chat/src/models/message.dart';
-import 'package:flutter_firebase_chat_app/data/datasources/sqflite_datasource.dart';
-import 'package:flutter_firebase_chat_app/models/chat.dart';
-import 'package:flutter_firebase_chat_app/models/local_message.dart';
+import 'package:flutter_with_rethink_encrypted_app/data/datasources/sqflite_datasource.dart';
+import 'package:flutter_with_rethink_encrypted_app/models/chat.dart';
+import 'package:flutter_with_rethink_encrypted_app/models/local_message.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:chat/src/models/receipt.dart';
@@ -13,13 +13,13 @@ class MockSqfliteDatabase extends Mock implements Database {}
 class MockBatch extends Mock implements Batch {}
 
 void main() {
-  SqfliteDataSource sut;
+  SqfliteDatasource sut;
   MockSqfliteDatabase database;
   MockBatch batch;
   setUp(() {
     database = MockSqfliteDatabase();
     batch = MockBatch();
-    sut = SqfliteDataSource(database);
+    sut = SqfliteDatasource(database);
   });
   final message = Message.fromJson({
     'from': '111',

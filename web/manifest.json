@@ -1,6 +1,6 @@
 {
-    "name": "flutter_firebase_chat_app",
-    "short_name": "flutter_firebase_chat_app",
+    "name": "flutter_with_rethink_encrypted_app",
+    "short_name": "flutter_with_rethink_encrypted_app",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

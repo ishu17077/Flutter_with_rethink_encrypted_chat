@@ -3,9 +3,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_firebase_chat_app/colors.dart';
-import 'package:flutter_firebase_chat_app/states_management/onboarding/profile_image_cubit.dart';
-import 'package:flutter_firebase_chat_app/theme.dart';
+import 'package:flutter_with_rethink_encrypted_app/colors.dart';
+import 'package:flutter_with_rethink_encrypted_app/states_management/onboarding/profile_image_cubit.dart';
+import 'package:flutter_with_rethink_encrypted_app/theme.dart';
 
 class ProfileUpload extends StatelessWidget {
   const ProfileUpload({Key key}) : super(key: key);
@@ -30,7 +30,7 @@ class ProfileUpload extends StatelessWidget {
             children: [
               CircleAvatar(
                 backgroundColor: Colors.transparent,
-                child: BlocBuilder<ProfileImageCubit, File>( 
+                child: BlocBuilder<ProfileImageCubit, File>(
                   //?BlocBuilder is catching from ProfileImageCubit and type is file check Profile image cubit for more info
                   //* builder function is doing the thing  where state is the emitted file
                   //! Note the InkWell above whose onTap does call getImage

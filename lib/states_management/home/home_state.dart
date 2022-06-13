@@ -1,5 +1,5 @@
 // ignore: import_of_legacy_library_into_null_safe, implementation_imports
-import 'package:chat/src/models/user.dart';
+import 'package:chat/chat.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class HomeState extends Equatable {}

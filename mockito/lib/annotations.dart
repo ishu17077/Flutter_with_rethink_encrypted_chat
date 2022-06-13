@@ -14,6 +14,7 @@
 
 /// An annotation to direct Mockito to generate mock classes.
 ///
+// ignore: comment_references
 /// During [code generation][NULL_SAFETY_README], Mockito will generate a
 /// `Mock{Type} extends Mock` class for each class to be mocked, in
 /// `{name}.mocks.dart`, where `{name}` is the basename of the file in which
@@ -66,7 +67,9 @@ class GenerateMocks {
 /// directs Mockito to generate two mocks:
 /// `class MockFoo<T> extends Mocks implements Foo<T>` and
 /// `class MockFooOfInt extends Mock implements Foo<int>`.
+// ignore: todo
 // TODO(srawlins): Document this in NULL_SAFETY_README.md.
+// ignore: todo
 // TODO(srawlins): Add 'mixingIn'.
 class MockSpec<T> {
   final Symbol mockName;

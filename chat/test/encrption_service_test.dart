@@ -1,6 +1,5 @@
 // @dart=2.9
-import 'package:chat/src/services/encryption/encryption_contract.dart';
-import 'package:chat/src/services/encryption/encryption_service.dart';
+import 'package:chat/chat.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:encrypt/encrypt.dart';
 import 'package:flutter_test/flutter_test.dart';

@@ -2,25 +2,25 @@
 //@dart = 2.9
 import 'dart:async';
 
-import 'package:chat/src/models/user.dart';
+import 'package:chat/chat.dart';
 
-import 'package:chat/src/models/typing_event.dart';
-import 'package:chat/src/services/typing/typing_notification_service_contract.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:rethinkdb_dart/rethinkdb_dart.dart';
 
 class TypingNotification implements ITypingNotification {
   final Connection _connection;
   final Rethinkdb _r;
+  UserService _userService;
 
   final _controller = StreamController<TypingEvent>.broadcast();
   StreamSubscription _changefeed;
 
-  TypingNotification(this._r, this._connection);
+  TypingNotification(this._r, this._connection, this._userService);
 
   @override
-  Future<bool> send({@required TypingEvent event, @required User to}) async {
-    if (!to.active) return false;
+  Future<bool> send({@required TypingEvent event}) async {
+    final receiver = await _userService.fetch(event.to);
+    if (!receiver.active) return false;
     Map record = await _r
         .table('typing_events')
         .insert(event.toJson(), {'conflict': 'update'}).run(_connection);

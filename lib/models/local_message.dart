@@ -1,8 +1,6 @@
 //@dart = 2.9
-// ignore_for_file: implementation_imports
 
-import 'package:chat/src/models/message.dart';
-import 'package:chat/src/models/receipt.dart';
+import 'package:chat/chat.dart';
 
 class LocalMessage {
   String chatId;
@@ -16,17 +14,19 @@ class LocalMessage {
   Map<String, dynamic> toMap() => {
         'chat_id': chatId,
         'id': message.id,
-        ...message.toJson(),
-        //? ... spread opeator
+        'sender': message.from,
+        'receiver': message.to,
+        'contents': message.contents,
         'receipt': receipt.value(),
+        'received_at': message.timestamp.toString(),
       };
 
   factory LocalMessage.fromMap(Map<String, dynamic> json) {
     final message = Message(
-      from: json['from'],
-      to: json['to'],
+      from: json['sender'],
+      to: json['receiver'],
       contents: json['contents'],
-      timestamp: json['timestamp'],
+      timestamp: DateTime.parse(json['received_at']),
     );
     final localMessage = LocalMessage(
         json['chat_id'], message, EnumParsing.fromString(json['receipt']));

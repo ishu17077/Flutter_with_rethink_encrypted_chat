@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_chat_app/colors.dart';
-import 'package:flutter_firebase_chat_app/theme.dart';
+import 'package:flutter_with_rethink_encrypted_app/colors.dart';
+import 'package:flutter_with_rethink_encrypted_app/theme.dart';
 
 class OnlineIndicator extends StatelessWidget {
+  // ignore: use_key_in_widget_constructors
   const OnlineIndicator();
 
   @override

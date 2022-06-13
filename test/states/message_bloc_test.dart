@@ -2,7 +2,7 @@
 import 'package:chat/src/models/user.dart';
 import 'package:chat/src/models/message.dart';
 import 'package:chat/src/services/message/message_service_contract.dart';
-import 'package:flutter_firebase_chat_app/states_management/message/message_bloc.dart';
+import 'package:flutter_with_rethink_encrypted_app/states_management/message/message_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 

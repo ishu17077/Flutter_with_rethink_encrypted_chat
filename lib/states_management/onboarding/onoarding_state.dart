@@ -1,3 +1,5 @@
+// ignore_for_file: import_of_legacy_library_into_null_safe, implementation_imports
+
 import 'package:chat/src/models/user.dart';
 import 'package:equatable/equatable.dart';
 
@@ -14,8 +16,8 @@ class Loading extends OnboardingState {
 }
 
 class OnboardingSuccess extends OnboardingState {
-  final User _user;
-  OnboardingSuccess(this._user);
+  final User user;
+  OnboardingSuccess(this.user);
   @override
-  List<Object> get props => [_user];
+  List<Object> get props => [user];
 }

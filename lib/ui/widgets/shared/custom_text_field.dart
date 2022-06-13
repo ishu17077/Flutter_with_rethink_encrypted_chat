@@ -1,7 +1,7 @@
 // @dart=2.9
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_chat_app/colors.dart';
-import 'package:flutter_firebase_chat_app/theme.dart';
+import 'package:flutter_with_rethink_encrypted_app/colors.dart';
+import 'package:flutter_with_rethink_encrypted_app/theme.dart';
 
 // ignore: use_key_in_widget_constructors
 class CustomTextField extends StatelessWidget {

@@ -15,7 +15,8 @@ class MessageService implements IMessageService {
   final _controller = StreamController<Message>.broadcast();
   StreamSubscription _changefeed;
 
-  MessageService(this.r, this._connection, this._encryption);
+  MessageService(this.r, this._connection, {IEncryption encryption})
+      : _encryption = encryption;
 
   @override
   dispose() {
@@ -30,11 +31,14 @@ class MessageService implements IMessageService {
   }
 
   @override
-  Future<bool> send(Message message) async {
+  Future<Message> send(Message message) async {
     var data = message.toJson();
-    data['contents'] = _encryption.encrypt(message.contents);
-    Map record = await r.table('messages').insert(data).run(_connection);
-    return record['inserted'] == 1;
+    if (_encryption != null)
+      data['contents'] = _encryption.encrypt(message.contents);
+    Map record = await r
+        .table('messages')
+        .insert(data, {'return_changes': true}).run(_connection);
+    return Message.fromJson(record['changes'].first['new_val']);
   }
 
   _startRecievingMessages(User user) {
@@ -51,7 +55,7 @@ class MessageService implements IMessageService {
                 if (feedData['new_val'] == null) return;
                 final message = _messageFromFeed(feedData);
                 _controller.sink.add(message);
-                _removeDelieveredMessage(message);
+                _removeDeliveredMessage(message);
               })
               .catchError((err) => debugPrint(err))
               .onError((error, stackTrace) => debugPrint(error.toString()));
@@ -60,11 +64,12 @@ class MessageService implements IMessageService {
 
   Message _messageFromFeed(feedData) {
     var data = feedData['new_val'];
-    data['contents'] = _encryption.decrypt(data['contents']);
+    if (_encryption != null)
+      data['contents'] = _encryption.decrypt(data['contents']);
     return Message.fromJson(data);
   }
 
-  _removeDelieveredMessage(Message message) {
+  _removeDeliveredMessage(Message message) {
     r
         .table('messages')
         .get(message.id)

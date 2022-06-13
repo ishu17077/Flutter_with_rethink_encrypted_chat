@@ -1,16 +1,18 @@
 //@dart=2.9
+
 import 'package:chat/src/models/message.dart';
-import 'package:flutter_firebase_chat_app/data/datasources/datasource_contract.dart';
-import 'package:flutter_firebase_chat_app/models/chat.dart';
-import 'package:flutter_firebase_chat_app/viewmodels/chats_view_model.dart';
+import 'package:flutter_with_rethink_encrypted_app/data/datasources/datasource_contract.dart';
+import 'package:flutter_with_rethink_encrypted_app/models/chat.dart';
+import 'package:flutter_with_rethink_encrypted_app/viewmodels/chats_view_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
-class MockDataSource extends Mock implements IDataSource {}
+class MockDataSource extends Mock implements IDatasource {}
 
 void main() {
   ChatsViewModel sut;
   MockDataSource mockDataSource;
+
 
   setUp(() {
     mockDataSource = MockDataSource();

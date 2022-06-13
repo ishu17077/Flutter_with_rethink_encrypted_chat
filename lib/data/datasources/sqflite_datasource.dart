@@ -1,31 +1,30 @@
 // ignore_for_file: import_of_legacy_library_into_null_safe
 //@dart=2.9
-import 'package:flutter_firebase_chat_app/data/datasources/datasource_contract.dart';
-import 'package:flutter_firebase_chat_app/models/local_message.dart';
-import 'package:flutter_firebase_chat_app/models/chat.dart';
+import 'package:chat/chat.dart';
+import 'package:flutter_with_rethink_encrypted_app/data/datasources/datasource_contract.dart';
+import 'package:flutter_with_rethink_encrypted_app/models/local_message.dart';
+import 'package:flutter_with_rethink_encrypted_app/models/chat.dart';
 import 'package:sqflite/sqflite.dart';
 
-class SqfliteDataSource implements IDataSource {
-  @override
+class SqfliteDatasource implements IDatasource {
   final Database _db;
 
-  const SqfliteDataSource(this._db);
+  const SqfliteDatasource(this._db);
 
+  @override
   Future<void> addChat(Chat chat) async {
-    await _db.insert(
-      'chats',
-      chat.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+    await _db.transaction((txn) async {
+      await txn.insert('chats', chat.toMap(),
+          conflictAlgorithm: ConflictAlgorithm.rollback);
+    });
   }
 
   @override
   Future<void> addMessage(LocalMessage message) async {
-    await _db.insert(
-      'messages',
-      message.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+    await _db.transaction((txn) async {
+      await txn.insert('messages', message.toMap(),
+          conflictAlgorithm: ConflictAlgorithm.replace);
+    });
   }
 
   @override
@@ -58,14 +57,14 @@ class SqfliteDataSource implements IDataSource {
       FROM messages
       WHERE receipt = ?
       GROUP BY chat_id
-      ''', ['deliverred']);
+      ''', ['delivered']);
 
       return chatsWithLatestMessage.map<Chat>((row) {
         final int unread = chatsWithUnreadMessages.firstWhere(
             (ele) => row['chat_id'] == ele['chat_id'],
             orElse: () => {'unread': 0})['unread'];
 
-        final chat = Chat.fromMap(row);
+        final Chat chat = Chat.fromMap({"id": row['chat_id']});
         chat.unread = unread;
         chat.mostRecent = LocalMessage.fromMap(row);
         return chat;
@@ -74,7 +73,6 @@ class SqfliteDataSource implements IDataSource {
   }
 
   @override
-  //? This function doesn't act as a search function it rather matches the chatId and put the messages send by the sender to the appropriate chat id
   Future<Chat> findChat(String chatId) async {
     return await _db.transaction((txn) async {
       final listOfChatMaps = await txn.query(
@@ -82,21 +80,18 @@ class SqfliteDataSource implements IDataSource {
         where: 'id = ?',
         whereArgs: [chatId],
       );
-      //! This line is especially for _isExistingChat() so that if no chat can be found we can return null for file base_view_model.dart
-      if (listOfChatMaps.isEmpty) {
-        return null;
-      }
-      final unread = Sqflite.firstIntValue(await txn.rawQuery(
-          'SELECT COUNT(*) FROM MESSAGES WHERE chat._id =? AND receipt = ?',
-          [chatId, 'delievered']));
 
-      final mostRecentMessage = await txn.query(
-        'messages',
-        where: 'chat_id = ?',
-        whereArgs: [chatId],
-        orderBy: 'created_at DESC',
-        limit: 1,
-      );
+      if (listOfChatMaps.isEmpty) return null;
+
+      final unread = Sqflite.firstIntValue(await txn.rawQuery(
+          'SELECT COUNT(*) FROM MESSAGES WHERE chat_id = ? AND receipt = ?',
+          [chatId, 'delivered']));
+
+      final mostRecentMessage = await txn.query('messages',
+          where: 'chat_id = ?',
+          whereArgs: [chatId],
+          orderBy: 'created_at DESC',
+          limit: 1);
       final chat = Chat.fromMap(listOfChatMaps.first);
       chat.unread = unread;
       chat.mostRecent = LocalMessage.fromMap(mostRecentMessage.first);
@@ -111,6 +106,7 @@ class SqfliteDataSource implements IDataSource {
       where: 'chat_id = ?',
       whereArgs: [chatId],
     );
+
     return listOfMaps
         .map<LocalMessage>((map) => LocalMessage.fromMap(map))
         .toList();
@@ -118,12 +114,19 @@ class SqfliteDataSource implements IDataSource {
 
   @override
   Future<void> updateMessage(LocalMessage message) async {
-    await _db.update(
-      'messages',
-      message.toMap(),
-      where: 'id = ?',
-      whereArgs: [message.message.id],
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+    await _db.update('messages', message.toMap(),
+        where: 'id = ?',
+        whereArgs: [message.message.id],
+        conflictAlgorithm: ConflictAlgorithm.replace);
+  }
+
+  @override
+  Future<void> updateMessageReceipt(String messageId, ReceiptStatus status) {
+    return _db.transaction((txn) async {
+      await txn.update('messages', {'receipt': status.value()},
+          where: 'id = ?',
+          whereArgs: [messageId],
+          conflictAlgorithm: ConflictAlgorithm.replace);
+    });
   }
 }

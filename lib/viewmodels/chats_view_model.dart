@@ -1,22 +1,32 @@
-//@dart= 2.9
-// ignore_for_file: import_of_legacy_library_into_null_safe, implementation_imports
+//@dart=2.9
 
-import 'package:chat/src/models/message.dart';
-import 'package:chat/src/models/receipt.dart';
-import 'package:flutter_firebase_chat_app/data/datasources/datasource_contract.dart';
-import 'package:flutter_firebase_chat_app/models/chat.dart';
-import 'package:flutter_firebase_chat_app/models/local_message.dart';
-import 'package:flutter_firebase_chat_app/viewmodels/base_view_model.dart';
+import 'package:chat/chat.dart';
+import 'package:flutter_with_rethink_encrypted_app/data/datasources/datasource_contract.dart';
+import 'package:flutter_with_rethink_encrypted_app/models/chat.dart';
+import 'package:flutter_with_rethink_encrypted_app/models/local_message.dart';
+import 'package:flutter_with_rethink_encrypted_app/viewmodels/base_view_model.dart';
 
 class ChatsViewModel extends BaseViewModel {
-  final IDataSource _dataSource;
-  ChatsViewModel(this._dataSource) : super(_dataSource);
+  final IDatasource _datasource;
+  IUserService userService;
+
+  ChatsViewModel(this._datasource, {this.userService}) : super(_datasource);
+
+  Future<List<Chat>> getChats() async {
+    final chats = await _datasource.findAllChats();
+    if (userService != null) {
+      await Future.forEach(chats, (chat) async {
+        final user = await userService.fetch(chat.id);
+        chat.from = user;
+      });
+    }
+
+    return chats;
+  }
 
   Future<void> receivedMessage(Message message) async {
     LocalMessage localMessage =
-        LocalMessage(message.from, message, ReceiptStatus.delievered);
+        LocalMessage(message.from, message, ReceiptStatus.delivered);
     await addMessage(localMessage);
   }
-
-  Future<List<Chat>> getChats() async => await _dataSource.findAllChats();
 }

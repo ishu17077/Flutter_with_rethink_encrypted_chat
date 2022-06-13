@@ -1,6 +1,6 @@
 //@dart = 2.9
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_chat_app/theme.dart';
+import 'package:flutter_with_rethink_encrypted_app/theme.dart';
 
 class Logo extends StatelessWidget {
   const Logo({Key key}) : super(key: key);

@@ -25,6 +25,7 @@ class CallPair<T> {
   /// Result function that should be invoked.
   final Answer<T> response;
 
+  // ignore: todo
   // TODO: Rename to `Expectation` in 3.0.0.
   const CallPair(this.call, this.response);
 

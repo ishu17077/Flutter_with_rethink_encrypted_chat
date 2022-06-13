@@ -1,15 +1,20 @@
+// ignore_for_file: implementation_imports, import_of_legacy_library_into_null_safe, use_key_in_widget_constructors
+
 import 'package:chat/src/models/user.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_firebase_chat_app/states_management/home/home_cubit.dart';
-import 'package:flutter_firebase_chat_app/states_management/home/home_state.dart';
-import 'package:flutter_firebase_chat_app/states_management/onboarding/onoarding_state.dart';
-import 'package:flutter_firebase_chat_app/ui/pages/home/profile_image.dart';
+import 'package:flutter_with_rethink_encrypted_app/states_management/home/home_cubit.dart';
+import 'package:flutter_with_rethink_encrypted_app/states_management/home/home_state.dart';
+import 'package:flutter_with_rethink_encrypted_app/states_management/onboarding/onoarding_state.dart';
+import 'package:flutter_with_rethink_encrypted_app/ui/pages/home/home_router.dart';
+import 'package:flutter_with_rethink_encrypted_app/ui/widgets/home/profile_image.dart';
 
 class ActiveUsers extends StatefulWidget {
-  const ActiveUsers({Key? key}) : super(key: key);
+  final User me;
+  final IHomeRouter router;
+
+  // ignore: prefer_const_constructors_in_immutables
+  ActiveUsers(this.me, this.router);
 
   @override
   State<ActiveUsers> createState() => _ActiveUsersState();
@@ -28,7 +33,6 @@ class _ActiveUsersState extends State<ActiveUsers> {
   }
 
   _listItem(User user) {
-    print(user.photoUrl);
     return ListTile(
       leading: ProfileImage(
         imageUrl: user.photoUrl,
@@ -47,8 +51,13 @@ class _ActiveUsersState extends State<ActiveUsers> {
   _buildList(List<User> users) {
     return ListView.separated(
       padding: const EdgeInsets.only(top: 30.0, right: 16.0),
-      itemBuilder: (_, indx) => _listItem(users[indx]),
-      separatorBuilder: (_, __) => Divider(),
+      itemBuilder: (_, indx) => GestureDetector(
+        child: _listItem(users[indx]),
+        onTap: () => widget.router.onShowMessageThread(
+            context, users[indx], widget.me,
+            chatId: users[indx].id),
+      ),
+      separatorBuilder: (_, __) => const Divider(),
       itemCount: users.length,
     );
   }

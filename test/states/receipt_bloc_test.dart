@@ -2,7 +2,7 @@
 import 'package:chat/src/models/user.dart';
 import 'package:chat/src/models/receipt.dart';
 import 'package:chat/src/services/receipt/receipt_service_contract.dart';
-import 'package:flutter_firebase_chat_app/states_management/receipt/receipt_bloc.dart';
+import 'package:flutter_with_rethink_encrypted_app/states_management/receipt/receipt_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
@@ -31,7 +31,7 @@ void main() {
     expect(sut.state, ReceiptInitial());
   });
 
-  test('should emit message delievered state when message is sent', () {
+  test('should emit message delivered state when message is sent', () {
     final receipt = Receipt(
       messageId: '123',
       recipient: '345',
@@ -40,14 +40,14 @@ void main() {
     );
 
     when(receiptService.send(receipt)).thenAnswer((_) async => null);
-    sut.add(ReceiptEvent.onReceiptSent(receipt));
+    sut.add(ReceiptEvent.onMessageSent(receipt));
     expectLater(sut.stream, emits(ReceiptState.sent(receipt)));
   });
   test('should emit receipts recieved from service', () {
     final receipt = Receipt(
       messageId: '123',
       recipient: '345',
-      status: ReceiptStatus.delievered,
+      status: ReceiptStatus.delivered,
       timestamp: DateTime.now(),
     );
     when(receiptService.receipts(user: anyNamed('user')))

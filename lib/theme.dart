@@ -1,7 +1,7 @@
 // ignore_for_file: import_of_legacy_library_into_null_safe
 
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_chat_app/colors.dart';
+import 'package:flutter_with_rethink_encrypted_app/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 const appBarTheme = AppBarTheme(
@@ -18,7 +18,7 @@ final tabBarTheme = TabBarTheme(
     color: kPrimary,
   ),
 );
-final dividerTheme = DividerThemeData().copyWith(thickness: 1.1, indent: 75);
+final dividerTheme =const DividerThemeData().copyWith(thickness: 1.1, indent: 75);
 
 ThemeData lightTheme(BuildContext context) => ThemeData.light().copyWith(
       primaryColor: kPrimary,

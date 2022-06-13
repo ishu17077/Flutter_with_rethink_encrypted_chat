@@ -1,4 +1,4 @@
-# flutter_firebase_chat_app
+# flutter_with_rethink_encrypted_app
 
 A new Flutter project.
 

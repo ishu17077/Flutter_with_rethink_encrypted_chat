@@ -43,7 +43,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.flutter_firebase_chat_app"
+        applicationId "com.example.flutter_with_rethink_encrypted_app"
         minSdkVersion flutter.minSdkVersion
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
@@ -57,7 +57,7 @@ android {
             signingConfig signingConfigs.debug
         }
     }
-    namespace 'com.example.flutter_firebase_chat_app'
+    namespace 'com.example.flutter_with_rethink_encrypted_app'
 }
 
 flutter {

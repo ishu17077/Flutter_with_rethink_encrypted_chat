@@ -107,12 +107,14 @@ class _MockTargetGatherer {
     final mockTargets = <_MockTarget>{};
 
     for (final element in entryLib.topLevelElements) {
+      // ignore: todo
       // TODO(srawlins): Re-think the idea of multiple @GenerateMocks
       // annotations, on one element or even on different elements in a library.
       for (final annotation in element.metadata) {
         if (annotation == null) continue;
         if (annotation.element is! ConstructorElement) continue;
         final annotationClass = annotation.element.enclosingElement.name;
+        // ignore: todo
         // TODO(srawlins): check library as well.
         if (annotationClass == 'GenerateMocks') {
           mockTargets
@@ -619,6 +621,7 @@ class _MockLibraryInfo {
     }
 
     if (type is! analyzer.InterfaceType) {
+      // ignore: todo
       // TODO(srawlins): This case is not known.
       return literalNull;
     }
@@ -807,6 +810,7 @@ class _MockLibraryInfo {
           _expressionFromDartObject(element)
       });
     } else if (constant.isType) {
+      // ignore: todo
       // TODO(srawlins): It seems like this might be revivable, but Angular
       // does not revive Types; we should investigate this if users request it.
       var type = object.toTypeValue();
@@ -926,6 +930,7 @@ class _MockLibraryInfo {
   /// * type aliases (typedefs), both new- and old-style,
   /// * enums,
   /// * type variables.
+  // ignore: todo
   // TODO(srawlins): Contribute this back to a common location, like
   // package:source_gen?
   Reference _typeReference(analyzer.DartType type,
@@ -1000,6 +1005,7 @@ class _MockLibraryInfo {
 
     // For types like `dynamic`, return null; no import needed.
     if (library == null) return null;
+    // ignore: todo
     // TODO(srawlins): See what other code generators do here to guarantee sane
     // URIs.
     return library.source.uri.toString();

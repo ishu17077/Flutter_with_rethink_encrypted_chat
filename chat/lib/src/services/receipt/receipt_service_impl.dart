@@ -47,7 +47,7 @@ class ReceiptService implements IReceiptService {
                 if (feedData['new_val'] == null) return;
 
                 final receipt = _receiptFromFeed(feedData);
-                _removeDelieveredReceipt(receipt);
+                _removeDeliveredReceipt(receipt);
                 _controller.sink.add(receipt);
               })
               .catchError((err) => print(err))
@@ -60,7 +60,7 @@ class ReceiptService implements IReceiptService {
     return Receipt.fromJson(data);
   }
 
-  _removeDelieveredReceipt(Receipt receipt) {
+  _removeDeliveredReceipt(Receipt receipt) {
     r
         .table('receipts')
         .get(receipt.id)

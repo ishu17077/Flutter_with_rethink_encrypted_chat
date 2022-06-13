@@ -1,14 +1,14 @@
 //@dart=2.9
 import 'package:chat/src/models/receipt.dart';
 import 'package:chat/src/models/message.dart';
-import 'package:flutter_firebase_chat_app/data/datasources/datasource_contract.dart';
-import 'package:flutter_firebase_chat_app/models/chat.dart';
-import 'package:flutter_firebase_chat_app/models/local_message.dart';
-import 'package:flutter_firebase_chat_app/viewmodels/chat_view_model.dart';
+import 'package:flutter_with_rethink_encrypted_app/data/datasources/datasource_contract.dart';
+import 'package:flutter_with_rethink_encrypted_app/models/chat.dart';
+import 'package:flutter_with_rethink_encrypted_app/models/local_message.dart';
+import 'package:flutter_with_rethink_encrypted_app/viewmodels/chat_view_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
-class MockDataSource extends Mock implements IDataSource {}
+class MockDataSource extends Mock implements IDatasource {}
 
 void main() {
   ChatViewModel sut;
@@ -33,7 +33,7 @@ void main() {
   test('returns list of messages from local storage', () async {
     final chat = Chat('123');
     final localmessage =
-        LocalMessage(chat.id, message, ReceiptStatus.delievered);
+        LocalMessage(chat.id, message, ReceiptStatus.delivered);
     when(mockDataSource.findMessages(chat.id))
         .thenAnswer((_) async => [localmessage]);
     final messages = await sut.getMessages(chat.id);
@@ -50,7 +50,7 @@ void main() {
   test('add new sent message to this chat', () async {
     final chat = Chat('123');
     final localMessage =
-        LocalMessage(chat.id, message, ReceiptStatus.delievered);
+        LocalMessage(chat.id, message, ReceiptStatus.delivered);
     when(mockDataSource.findMessages(chat.id))
         .thenAnswer((_) async => [localMessage]);
     await sut.getMessages(chat.id);
@@ -62,7 +62,7 @@ void main() {
       () async {
     final chat = Chat('123');
     final localMessage =
-        LocalMessage(chat.id, message, ReceiptStatus.delievered);
+        LocalMessage(chat.id, message, ReceiptStatus.delivered);
     when(mockDataSource.findMessages(chat.id))
         .thenAnswer((_) async => [localMessage]);
     when(mockDataSource.findChat(chat.id)).thenAnswer((_) async => null);

@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// ignore_for_file: deprecated_member_use, duplicate_ignore
+
 import 'dart:async';
 
 import 'package:meta/meta.dart';
@@ -20,6 +22,7 @@ import 'package:mockito/src/invocation_matcher.dart';
 import 'package:test_api/fake.dart';
 // ignore: deprecated_member_use
 import 'package:test_api/test_api.dart';
+// ignore: todo
 // TODO(srawlins): Remove this when we no longer need to check for an
 // incompatiblity between test_api and test.
 // https://github.com/dart-lang/mockito/issues/175
@@ -773,6 +776,7 @@ class VerificationResult {
   ///
   /// Named arguments are listed in the order they are captured in, not the
   /// order in which they were passed.
+  // ignore: todo
   // TODO(https://github.com/dart-lang/linter/issues/1992): Remove ignore
   // comments below when google3 has linter with this bug fixed.
   // ignore: unnecessary_getters_setters
@@ -803,6 +807,7 @@ class VerificationResult {
   ///
   /// This incompatibility results in an inscrutible error for users. Catching
   /// it here allows us to give some steps to fix.
+  // ignore: todo
   // TODO(srawlins): Remove this when we don't need to check for an
   // incompatiblity between test_api and test any more.
   // https://github.com/dart-lang/mockito/issues/175
