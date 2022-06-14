@@ -16,7 +16,7 @@ void main() {
   MessageService sut;
 
   setUp(() async {
-    connection = await r.connect(host: '127.0.0.1', port: 28015);
+    connection = await r.connect(host: '192.168.2.49', port: 28015);
     final encryption = EncryptionService(Encrypter(AES(Key.fromLength(32))));
     await createDb(r, connection);
     sut = MessageService(r, connection, encryption: encryption);
@@ -48,7 +48,7 @@ void main() {
     );
 
     final res = await sut.send(message);
-    expect(res, true);
+    expect(res.contents, isNotEmpty);
   });
   test('succesfully subscribe and recieve messages', () async {
     String contents = 'this is a top secret message';

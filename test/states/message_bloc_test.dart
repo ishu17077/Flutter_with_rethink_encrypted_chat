@@ -31,7 +31,7 @@ void main() {
     expect(sut.state, MessageInitial());
   });
 
-  test('should emit message sent state when message is sent', () {
+  test('should emit message sent state when message is sent', () async {
     final message = Message(
       from: '123',
       to: '456',
@@ -41,7 +41,7 @@ void main() {
 
     when(messageService.send(message)).thenAnswer((_) async => null);
     sut.add(MessageEvent.onMessageSent(message));
-    expectLater(sut.stream, emits(MessageState.sent(message)));
+    expectLater(await sut.stream.first, MessageState.sent(null));
   });
   test('should emit messages recieved from service', () {
     final message = Message(
