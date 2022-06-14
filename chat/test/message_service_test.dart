@@ -23,7 +23,7 @@ void main() {
   });
 
   tearDown(() async {
-    sut.dispose();
+    sut?.dispose();
     await cleanDb(r, connection);
   });
 
