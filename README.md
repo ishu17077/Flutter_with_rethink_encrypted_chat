@@ -4,8 +4,8 @@ A new Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
-
+The flutter project can let you chat anyone albiet has bugs but nothing that can't be solved with persistence.
+We look forward to our 1 member community to improver it.
 A few resources to get you started if this is your first Flutter project:
 
 - [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
