@@ -42,16 +42,19 @@ void main() {
     when(database.transaction((txn) async {
       await txn.insert('chats', chat.toMap(),
           conflictAlgorithm: ConflictAlgorithm.rollback);
-    })).thenThrow(1);
+    })).thenAnswer((_) async => null);
     //? Act
     await sut.addChat(chat);
 
     //? Assert
-    // verify(database.insert('chats', chat.toMap(),
-    //         conflictAlgorithm: ConflictAlgorithm.replace))
-    //     .called(1);
-    verify(database.transaction(any)).called(1);
-    // verifyNever(database.transaction(any));
+    ////verify(database.insert('chats', chat.toMap(),
+    ////         conflictAlgorithm: ConflictAlgorithm.replace))
+    ////     .called(1);
+    expect(database.transaction((txn) async {
+      await txn.insert('chats', chat.toMap(),
+          conflictAlgorithm: ConflictAlgorithm.rollback);
+    }), null);
+    //// verifyNever(database.transaction(any));
   });
 
   test('should perform insert of message to the database', () async {
@@ -61,7 +64,7 @@ void main() {
       await txn.insert('messages', message.toJson(),
           conflictAlgorithm: ConflictAlgorithm.replace);
     }))
-        .thenThrow(1);
+        .thenReturn(null);
     //? Act
     await sut.addMessage(localMessage);
 
@@ -108,33 +111,29 @@ void main() {
       localMessage.toMap(),
       where: anyNamed('where'),
       whereArgs: anyNamed('whereArgs'),
-      conflictAlgorithm: ConflictAlgorithm.replace,
     )).thenAnswer((_) async => 1);
-
-    //? Act
     await sut.updateMessage(localMessage);
-    verify(database.update(
-      'messages',
-      localMessage.toMap(),
-      where: anyNamed('where'),
-      whereArgs: anyNamed('whereArgs'),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    )).called(1);
+    verify(database.update('messages', localMessage.toMap(),
+            where: anyNamed('where'),
+            whereArgs: anyNamed('whereArgs'),
+            conflictAlgorithm: ConflictAlgorithm.replace))
+        .called(1);
   });
+
   test('should perform database batch delete of chat', () async {
-    //? Arrange
-    const chatId = '111';
+    //arrange
+    final chatId = '111';
     when(database.batch()).thenReturn(batch);
 
-    //? Act
+    //act
     await sut.deleteChat(chatId);
 
-    //? Assert
+    //assert
     verifyInOrder([
       database.batch(),
       batch.delete('messages', where: anyNamed('where'), whereArgs: [chatId]),
       batch.delete('chats', where: anyNamed('where'), whereArgs: [chatId]),
-      batch.commit(noResult: true),
+      batch.commit(noResult: true)
     ]);
   });
 }
