@@ -19,22 +19,17 @@ version: 1.0.0+1
 
 environment:
   sdk: ">=2.15.0 <3.0.0"
-
-# Dependencies specify other packages that your package needs in order to work.
-# To automatically upgrade your package dependencies to the latest versions
-# consider running `flutter pub upgrade --major-versions`. Alternatively,
-# dependencies can be manually updated by changing the version numbers below to
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  bloc: ^8.1.0
+  bloc: ^7.0.0
   chat:
     path: ./chat
   cupertino_icons: ^1.0.2
   equatable: ^2.0.3
   flutter:
     sdk: flutter
-  flutter_bloc: ^8.0.1
+  flutter_bloc: ^7.0.1
   google_fonts: ^1.1.2
   http: ^0.12.0+2
   image_picker: ^0.6.7+22
@@ -45,18 +40,16 @@ dependencies:
   sqflite: ^2.0.0+3
 
 dev_dependencies:
-  flutter_lints: ^2.0.1
+  flutter_lints: ^1.0.0
   flutter_test:
     sdk: flutter
   mockito:
     path: ./mockito
 dependency_overrides: null
-
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

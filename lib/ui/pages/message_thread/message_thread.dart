@@ -25,9 +25,9 @@ class MessageThread extends StatefulWidget {
   final ChatsCubit chatsCubit;
   MessageThread(this.receiver, this.me, this.messageBloc, this.chatsCubit,
       this.typingNotificationBloc,
-      {Key? key, String chatId = ''})
+      {String chatId = ''})
       // ignore: unnecessary_this, prefer_initializing_formals
-      : this.chatId = chatId, super(key: key);
+      : this.chatId = chatId;
 
   @override
   State<MessageThread> createState() => _MessageThreadState();
@@ -312,7 +312,7 @@ class _MessageThreadState extends State<MessageThread> {
     //? if its already marked read, do nothing
     final receipt = Receipt(
       recipient: message.message.to,
-      messageId: message.id,  
+      messageId: message.id,
       status: ReceiptStatus.read,
       timestamp: DateTime.now(),
     );
