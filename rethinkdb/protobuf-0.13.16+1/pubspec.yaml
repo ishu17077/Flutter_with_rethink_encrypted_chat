@@ -1,0 +1,19 @@
+name: protobuf
+version: 0.13.16+1
+author: Dart Team <misc@dartlang.org>
+description: >
+  Runtime library for protocol buffers support.
+  Use https://pub.dartlang.org/packages/protoc_plugin to generate dart code for your '.proto' files.
+homepage: https://github.com/dart-lang/protobuf
+
+environment:
+  sdk: '>=2.12.0 <5.0.0'
+
+dependencies:
+  fixnum:
+    path: './fixnum-0.10.11'
+
+dev_dependencies:
+  test: '>=1.2.0'
+  benchmark_harness: any
+  js: any
