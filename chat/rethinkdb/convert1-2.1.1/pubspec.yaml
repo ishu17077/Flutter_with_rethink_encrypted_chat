@@ -1,0 +1,15 @@
+name: convert1
+version: 2.1.1
+description: Utilities for converting between data representations.
+author: Dart Team <misc@dartlang.org>
+homepage: https://github.com/dart-lang/convert
+
+environment:
+  sdk: '>=1.17.0 <4.0.0'
+
+dependencies:
+  charcode: ^1.1.0
+  typed_data: ^1.1.0
+
+dev_dependencies:
+  # test: any

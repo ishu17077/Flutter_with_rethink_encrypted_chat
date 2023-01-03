@@ -11,10 +11,10 @@ dependency_overrides:
 dependencies:
   protobuf:
     path: './protobuf-0.13.16+1'
-  crypto:
-    path: './pbkdf2_dart-2.1.0/crypto-3.0.2'
-  convert: 
-    path: './convert-2.1.1'
+  crypto1:
+    path: './pbkdf2_dart-2.1.0/crypto1-3.0.2'
+  convert1: 
+    path: './convert1-2.1.1'
   pbkdf2_dart:
     path: './pbkdf2_dart-2.1.0'
 dev_dependencies:

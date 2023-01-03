@@ -1,4 +1,5 @@
 name: pointycastle
+publish_to: none
 version: 3.5.0
 description: A Dart library implementing cryptographic algorithms and primitives, modeled on the BouncyCastle library.
 homepage: https://github.com/bcgit/pc-dart
@@ -7,8 +8,8 @@ environment:
 
 dependencies:
   collection: ^1.15.0
-  convert: 
-    path: '../convert-2.1.1'
+  convert1: 
+    path: '../convert1-2.1.1'
   js: ^0.6.3
 
 dev_dependencies:

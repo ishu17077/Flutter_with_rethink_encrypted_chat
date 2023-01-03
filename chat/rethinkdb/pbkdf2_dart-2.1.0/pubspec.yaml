@@ -7,7 +7,7 @@ environment:
   # Works in Dart 1 (starting with 1.20.1), and works in Dart 2.
   sdk: '>=2.12.0 <3.0.0'
 dependencies:
-  crypto:
-    path: './crypto-3.0.2'
+  crypto1:
+    path: './crypto1-3.0.2'
 dev_dependencies:
   # test: ^1.22.1 
